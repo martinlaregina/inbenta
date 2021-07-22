@@ -19,6 +19,11 @@
         <h3 style="margin:1.5em;">Chatbots test</h3>
     </div>
 
+    <div class="inbenta">
+        <div class="inbenta-bot__launcher"></div>
+        <div class="inbenta-bot"></div>
+    </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -30,7 +35,7 @@
 </html>
 <script>
     var accessToken = {
-        accessToken: "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9qZWN0IjoibWFsZWphbmRyb19jaGFsbGVuZ2VfY2hhdGJvdF9lbiIsInNhbHQiOiJCY2VmNHVxWVU2eWhoQ0xVZnd2NVZ3PT0iLCJrZXkiOiJCY2VmNHVxSm1JSDBZTUhBXC84NlVnckh0TEFLOW5TZitLWHROd2FNT0JTOD0iLCJpYXQiOjE2MjY5NTM0NzgsImV4cCI6MTYyNjk1NDY3OH0.zCXZuUyE6QfgIRdgMftpCo3ESulhE3XOVpX9emus_8Q"
+        accessToken: "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9qZWN0IjoibWFsZWphbmRyb19jaGFsbGVuZ2VfY2hhdGJvdF9lbiIsInNhbHQiOiJCY2VmNHVxWVU2eWhoQ0xVZnd2NVZ3PT0iLCJrZXkiOiJCY2VmNHVxSm1JSDBZTUhBXC84NlVnckh0TEFLOW5TZitLWHROd2FNT0JTOD0iLCJpYXQiOjE2MjY5NTg3NTgsImV4cCI6MTYyNjk1OTk1OH0.VAAzwit4rgX3hGSHt2c7tatgdNTnF3nTjsjU8cWSnyk"
     };
     botConfig = {
         environment: "development",
@@ -46,7 +51,7 @@
     var queryForMultipleChoiceQuestion = 'special meals';
     var queryForSimpleAnswer = 'vegan meals';
 
-    APIPromise = InbentaChatbotSDK.apiClient(accessToken, botConfig, "<?echo $key?>");
+    APIPromise = InbentaChatbotSDK.apiClient(accessToken, botConfig, "Bcef4uqJmIH0YMHA/86UgrHtLAK9nSf+KXtNwaMOBS8=");
     APIPromise.then((chatbotAPI) => {
         chatbotAPI.startConversation().then(function(response) {
             // set a variable
