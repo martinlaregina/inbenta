@@ -19,7 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-        InbentaAuth = InbentaChatbotSDK.createFromAccessToken('eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9qZWN0IjoibWFsZWphbmRyb19jaGFsbGVuZ2VfY2hhdGJvdF9lbiIsInNhbHQiOiJCY2VmNHVxWVU2eWhoQ0xVZnd2NVZ3PT0iLCJrZXkiOiJCY2VmNHVxSm1JSDBZTUhBXC84NlVnckh0TEFLOW5TZitLWHROd2FNT0JTOD0iLCJpYXQiOjE2MjY5NjM2MjcsImV4cCI6MTYyNjk2NDgyN30.cnHrd85Vb7a_R3xXotUDo3ZXz5-Dx6hE75-CKJjBABY', 'Bcef4uqJmIH0YMHA/86UgrHtLAK9nSf+KXtNwaMOBS8=', '1626964827');
+        InbentaAuth = InbentaChatbotSDK.createFromAccessToken('eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9qZWN0IjoibWFsZWphbmRyb19jaGFsbGVuZ2VfY2hhdGJvdF9lbiIsInNhbHQiOiJCY2VmNHVxWVU2eWhoQ0xVZnd2NVZ3PT0iLCJrZXkiOiJCY2VmNHVxSm1JSDBZTUhBXC84NlVnckh0TEFLOW5TZitLWHROd2FNT0JTOD0iLCJpYXQiOjE2MjY5NjYyMTMsImV4cCI6MTYyNjk2NzQxM30.8vh5AUAAvPtAn4DnMhKPIDDI3B8OOzRAjpFNjychFEA', 'Bcef4uqJmIH0YMHA/86UgrHtLAK9nSf+KXtNwaMOBS8=', '1626967413');
 
         var InbentaConfiguration = {
             lang: 'en',
@@ -32,13 +32,26 @@
             launcher: {
                 title: ""
             },
+            ratingPosition: 'mixed',
+            ratingOptions: [{
+                id: 1,
+                label: 'yes',
+                comment: false,
+                response: "Gracias!"
+            }, {
+                id: 2,
+                label: 'no',
+                comment: true,
+                response: "We are sorry about that.",
+                customClass: 'custom-inbentaButton'
+            }],
             labels: {
                 en: {
                     'yes': 'Sure',
                     'no': 'Nope',
                     'generic-error-message': "I'm still in training, please try again",
                     'enter-question': 'Ask Me!',
-                    'interface-title': 'Test de ChatBot',
+                    'interface-title': 'Rating mode enabled',
                     'guest-name': 'You',
                     'help-question': "Hello!, I'm Inbenta Support Agent v0.1.0, what can I do for you?",
                     'thanks': 'Thank you!',
