@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,8 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Hello, world!</title>
-  </head>
-  <body>
+</head>
+<script src="https://sdk.inbenta.io/chatbot/1/inbenta-chatbot-sdk.js"></script>
+
+<body>
     <h1>Hello, world!</h1>
 
     <!-- Optional JavaScript -->
@@ -18,5 +21,74 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>
+<script>
+    var accessToken = {
+        accessToken: "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9qZWN0IjoibWFsZWphbmRyb19jaGFsbGVuZ2VfY2hhdGJvdF9lbiIsInNhbHQiOiJCY2VmNHVxWVU2eWhoQ0xVZnd2NVZ3PT0iLCJrZXkiOiJCY2VmNHVxSm1JSDBZTUhBXC84NlVnckh0TEFLOW5TZitLWHROd2FNT0JTOD0iLCJpYXQiOjE2MjY5NTE3NTgsImV4cCI6MTYyNjk1Mjk1OH0.aYxgbcozH0cebw0jXvncDes42wLN31o0JbWJyFyDGBo"
+    };
+    botConfig = {
+        environment: "development",
+        lang: 'en',
+        answers: {
+            answerAttributes: ['ANSWER_TEXT'],
+            sideBubbleAttributes: ['SIDEBUBBLE_TEXT'],
+            maxRelatedContents: 3
+        },
+    };
+
+    var queryForPolarQuestion = 'baggage';
+    var queryForMultipleChoiceQuestion = 'special meals';
+    var queryForSimpleAnswer = 'vegan meals';
+
+    APIPromise = InbentaChatbotSDK.apiClient(accessToken, botConfig, "<?echo $key?>");
+    APIPromise.then((chatbotAPI) => {
+        chatbotAPI.startConversation().then(function(response) {
+            // set a variable
+            chatbotAPI.addVariable('acme_airlines_en/firstname', 'NewName', true);
+            // send a message
+            chatbotAPI.conversation(queryForSimpleAnswer).then(function(response) {
+                console.log(response.data);
+                // get the last answer
+                var lastAnswer = response.data;
+                // if there are many answers choose only the last one
+                if (response.data.answers) {
+                    lastAnswer = response.data.answers[response.data.answers.length - 1];
+                }
+                // console.log(lastAnswer);
+                switch (lastAnswer.type) {
+                    case "multipleChoiceQuestion":
+                        console.log("multiple choice question received");
+                        // choose one option randomly
+                        var options = lastAnswer.options;
+                        var choosedOption = options[Math.floor(Math.random() * options.length) % options.length];
+                        console.log(choosedOption);
+                        chatbotAPI.conversation(choosedOption.label, choosedOption.value).then(function(response) {
+                            console.log("'" + choosedOption.label + "' selected");
+                            console.log(response.data);
+                            // rate the content
+                            if (response.data.parameters.contents.trackingCode) {
+                                chatbotAPI.rateContent(response.data.parameters.contents.trackingCode.rateCode, 1);
+                            }
+                        });
+                        break;
+                    case "polarQuestion":
+                        console.log("polar question received");
+                        // choose yes
+                        var choosedOption = "yes";
+                        chatbotAPI.conversation(choosedOption, choosedOption).then(function(response) {
+                            console.log("'yes' selected");
+                            console.log(response.data);
+                        });
+                        break;
+                    case "answer":
+                        console.log("simple answer received");
+                        break;
+                    default:
+                        break;
+                }
+            });
+        });
+    });
+</script>
